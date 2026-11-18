@@ -52,7 +52,7 @@
 const EPISODES = [
   {
     id: "2026-12-13", opens: "2026-12-12T00:00:00-08:00",
-    weekend: "December 12–13 · Third Sunday of Advent",
+    weekend: "December 12–13, 2026 · Third Sunday of Advent",
     title: "How to Set Boundaries for Christmas Spending",
     desc: "Christmas joy doesn't have to come with January regret. Set clear expectations with your loved ones before the holidays, so everyone knows the plan.",
     links: [
@@ -63,7 +63,7 @@ const EPISODES = [
   },
   {
     id: "2026-12-27", opens: "2026-12-26T00:00:00-08:00",
-    weekend: "December 26–27 · Feast of the Holy Family",
+    weekend: "December 26–27, 2026 · Feast of the Holy Family",
     title: "Financial Lessons from the Holy Family",
     desc: "What Jesus, Mary and Joseph can teach our families about money: simplicity, trust in God's provision, and responsible stewardship.",
     links: [
@@ -76,7 +76,7 @@ const EPISODES = [
 ];
 // ─────────────────────────────────────────────────────────
 
-const fmt = d => d.toLocaleDateString("en-US", {weekday:"long", month:"long", day:"numeric", timeZone:"America/Los_Angeles"});
+const fmt = d => d.toLocaleDateString("en-US", {weekday:"long", month:"long", day:"numeric", year:"numeric", timeZone:"America/Los_Angeles"});
 const esc = s => String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 
 const PREVIEW = /[?&]preview\b/.test(location.search);
