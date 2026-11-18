@@ -79,17 +79,18 @@ const EPISODES = [
 const fmt = d => d.toLocaleDateString("en-US", {weekday:"long", month:"long", day:"numeric", timeZone:"America/Los_Angeles"});
 const esc = s => String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 
+const PREVIEW = /[?&]preview\b/.test(location.search);
 function render(){
-  const now = new Date();
+  const now = PREVIEW ? new Date("2100-01-01") : new Date();
   const live = EPISODES.filter(e => new Date(e.opens) <= now).sort((a,b) => b.id.localeCompare(a.id));
   const upcoming = EPISODES.filter(e => new Date(e.opens) > now).sort((a,b) => a.id.localeCompare(b.id));
   const want = (location.hash || "").replace(/^#ep-/, "").replace(/^#/, "");
   const notice = document.getElementById("notice");
   const list = document.getElementById("list");
-  notice.innerHTML = "";
+  notice.innerHTML = PREVIEW ? `<div class="notice"><b>Preview:</b> showing every episode, including ones not yet visible to parishioners. ${EPISODES.map(e => esc(e.title) + " appears " + fmt(new Date(e.opens))).join("; ")}.</div>` : "";
 
   const target = EPISODES.find(e => e.id === want);
-  if (target && new Date(target.opens) > now) {
+  if (!PREVIEW && target && new Date(target.opens) > now) {
     notice.innerHTML = `<div class="notice">This weekend's episode, <b>${esc(target.title)}</b>, will be available here on <b>${fmt(new Date(target.opens))}</b>. Please check back then!</div>`;
   }
 
